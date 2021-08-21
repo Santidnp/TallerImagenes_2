@@ -8,7 +8,9 @@ class thetaFilter:
         self.image = cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2GRAY)
 
     def set_theta(self,theta,diftheta):
-        pass
+        self.theta = theta
+        self.diftheta = diftheta
+
 
     def filtering(self):
         pass
