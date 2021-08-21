@@ -1,4 +1,4 @@
-import  cv2
+import cv2
 import numpy as np
 import sys
 
@@ -15,17 +15,19 @@ class thetaFilter:
 
     def filtering(self):
         # create a low pass filter mask
-        num_rows, num_cols = (image_gray.shape[0], image_gray.shape[1])
+        image_gray_fft = np.fft.fft2(self.image_gray)
+        image_gray_fft_shift = np.fft.fftshift(image_gray_fft)
+        num_rows, num_cols = (self.image_gray.shape[0], self.image_gray.shape[1])
         enum_rows = np.linspace(0, num_rows - 1, num_rows)
         enum_cols = np.linspace(0, num_cols - 1, num_cols)
         col_iter, row_iter = np.meshgrid(enum_cols, enum_rows)
-        low_pass_mask = np.zeros_like(image_gray)
-        high_pass = np.zeros_like(image_gray)
+        low_pass_mask = np.zeros_like(self.image_gray)
+        high_pass = np.zeros_like(self.image_gray)
         freq_cut_off = self.theta - self.diftheta  #0.25 it should less than 1
         half_size = num_rows / 2 - 1  # here we assume num_rows = num_columns
         radius_cut_off = int(freq_cut_off * half_size)
-        idx_lp = np.sqrt((col_iter - half_size) ** 2 + (row_iter - half_size) ** 2) < 0.4 * half_size
-        idx_hp = np.sqrt((col_iter - half_size) ** 2 + (row_iter - half_size) ** 2) > 0.2 * half_size
+        idx_lp = np.sqrt((col_iter - half_size) ** 2 + (row_iter - half_size) ** 2) < 50 * half_size
+        idx_hp = np.sqrt((col_iter - half_size) ** 2 + (row_iter - half_size) ** 2) > 45 * half_size
         idx_bp = np.bitwise_and(idx_lp, idx_hp)
         low_pass_mask[idx_bp] = 1
 
@@ -39,5 +41,5 @@ class thetaFilter:
         cv2.waitKey(0)
 
 
-if __name__ == '__main__':
-    pass
+#if __name__ == '__main__':
+   # pass
