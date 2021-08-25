@@ -33,8 +33,9 @@ class thetaFilter:
         image_filtered1 = np.fft.ifft2(np.fft.fftshift(fft_filtered))
         image_filtered1 = np.absolute(image_filtered1)
         image_filtered1 /= np.max(image_filtered1)
-        cv2.imshow("Filtered image ", image_filtered1)
+        cv2.imshow("Imagen " + self.theta+" grados", image_filtered1)
         cv2.waitKey(0)
+        return image_filtered1
 
 
     #if __name__ == '__main__':
