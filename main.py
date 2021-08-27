@@ -1,6 +1,9 @@
 from thetaFilter import *
 import sys
 
+"""
+python path_imagen 135 30
+"""
 
 if __name__ == '__main__':
 
