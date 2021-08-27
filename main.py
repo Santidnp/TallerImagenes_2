@@ -21,6 +21,8 @@ if __name__ == '__main__':
         imagen_promedio += V
 
     imagen_promedio = imagen_promedio/4
+    imagen_promedio = imagen_promedio -imagen_promedio.min()
+    imagen_promedio = imagen_promedio/imagen_promedio.max()
     cv2.imshow("Imagen Promedio",imagen_promedio)
     cv2.waitKey(0)
 
